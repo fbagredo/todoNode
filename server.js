@@ -28,7 +28,7 @@ var Todo = mongoose.model('Todo', {
 app.get('/task/pending', function(req, res) {
 		var cutoff = new Date();
 		cutoff.setDate(cutoff.getDate());
-		var query = Todo.find({dueDate: {$lte: cutoff}})
+		var query = Todo.find({dueDate: {$gt: cutoff}})
 		query.exec(function(err, overdue){
 		if(err) {
 			res.send(err);
@@ -40,7 +40,7 @@ app.get('/task/pending', function(req, res) {
 app.get('/task/overdue', function(req, res) {
 	var cutoff = new Date();
 	cutoff.setDate(cutoff.getDate());
-	var query = Todo.find({dueDate: {$gt: cutoff}})
+	var query = Todo.find({dueDate: {$lte: cutoff}})
 	query.exec(function(err,pending){
 	if(err) {
 		res.send(err);
